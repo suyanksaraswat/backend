@@ -25,8 +25,13 @@ router.post("/new", verify, async (req, res) => {
   }
 });
 
-router.get("/", verify, async (req, res) => {
-  res.json(req.user);
+router.get("/all", verify, async (req, res) => {
+  const allProperties = await Property.find({});
+  try {
+    res.send({ properties: allProperties });
+  } catch (err) {
+    res.status(400).send(err);
+  }
 });
 
 module.exports = router;
