@@ -4,7 +4,8 @@ const Joi = require("joi");
 const registerValidation = (data) => {
   const schema = Joi.object({
     name: Joi.string().min(6).required(),
-    email: Joi.string().min(6).required().email(),
+    phone: Joi.string().min(9).max(12).required(),
+    email: Joi.string().min(6).email(),
     password: Joi.string().min(6).required(),
   });
 
@@ -13,7 +14,7 @@ const registerValidation = (data) => {
 
 const loginValidation = (data) => {
   const schema = Joi.object({
-    email: Joi.string().min(6).required().email(),
+    phone: Joi.string().min(9).max(12).required(),
     password: Joi.string().min(6).required(),
   });
 
@@ -34,6 +35,9 @@ const propertyValidation = (data) => {
       locality: Joi.string().required(),
     }),
     area: Joi.string().required(),
+
+    isRecommended: Joi.boolean(),
+    isFavorite: Joi.boolean(),
   });
 
   return schema.validate(data);

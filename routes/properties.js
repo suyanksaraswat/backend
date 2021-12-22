@@ -15,6 +15,9 @@ router.post("/new", verify, async (req, res) => {
     phoneNumber: req.body.phoneNumber,
     location: req.body.location,
     area: req.body.area,
+
+    isRecommended: req.body.isRecommended || false,
+    isFavorite: req.body.isFavorite || false,
   });
 
   try {
@@ -25,13 +28,16 @@ router.post("/new", verify, async (req, res) => {
   }
 });
 
-router.get("/all", verify, async (req, res) => {
-  const allProperties = await Property.find({});
+router.get("/dashboard", verify, async (req, res) => {
+  const recommendedProperties = await Property.find({ isRecommended: true });
+  const favoriteProperties = await Property.find({ isFavorite: true });
+
   try {
-    res.send({ properties: allProperties });
+    res.send({ recommendedProperties, favoriteProperties });
   } catch (err) {
     res.status(400).send(err);
   }
 });
+
 
 module.exports = router;

@@ -49,6 +49,12 @@ const propertySchema = new mongoose.Schema({
     min: 1,
     max: 255,
   },
+  isRecommended: {
+    type: Boolean,
+  },
+  isFavorite: {
+    type: Boolean,
+  },
 });
 
 module.exports = mongoose.model("Property", propertySchema);
